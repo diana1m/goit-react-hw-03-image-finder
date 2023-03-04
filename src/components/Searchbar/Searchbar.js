@@ -10,8 +10,8 @@ export class Searchbar extends Component{
 		this.setState({ value })
 	}
 
-	handleSubmit = (e) => {
-		e.preventDefault()
+	handleSubmit = (evn) => {
+		evn.preventDefault();
 		if (!this.state.value) {
 			console.log('Error')
 		}
@@ -23,9 +23,9 @@ export class Searchbar extends Component{
     render() {
         return (
             <Header>
-                <Form>
-                    <Button type="submit" onSubmit={this.handleSubmit}>
-                    <ButtonLabel>Search</ButtonLabel>
+                <Form onSubmit={this.handleSubmit}>
+                    <Button type="submit" >
+                       <ButtonLabel>Search</ButtonLabel>
                     </Button>
 
                     <Input
