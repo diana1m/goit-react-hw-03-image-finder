@@ -1,8 +1,6 @@
 import { Component } from 'react'
 import { getImages } from "components/services/getImages";
 
-import { Hearts } from  'react-loader-spinner'
-
 import { Container } from "./Styles/Styles";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { Loader } from './Loader/Loader';
