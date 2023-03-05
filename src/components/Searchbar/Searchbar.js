@@ -1,5 +1,6 @@
 import { Component } from 'react'
-import { Header, Form, Button, ButtonLabel, Input } from "components/Searchbar/Searchbar.styled"
+import { Header, Form, Button, Input, Icon } from "components/Searchbar/Searchbar.styled"
+
 
 export class Searchbar extends Component{
     state = {
@@ -25,7 +26,7 @@ export class Searchbar extends Component{
             <Header>
                 <Form onSubmit={this.handleSubmit}>
                     <Button type="submit" >
-                       <ButtonLabel>Search</ButtonLabel>
+                       <Icon/>
                     </Button>
 
                     <Input
@@ -38,6 +39,7 @@ export class Searchbar extends Component{
                     required
                     />
                 </Form>
+                
             </Header>
         )
     }
