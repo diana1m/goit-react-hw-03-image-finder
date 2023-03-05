@@ -32,7 +32,7 @@ export class ImageModal extends Component{
             createPortal(
                 <Overlay onClick={this.handelBackdropClick}>
                     <Modal> 
-                        <img src={this.props.url} alt="photo"/>
+                        <img src={this.props.url}/>
                     </Modal>
                 </Overlay>
             , modalRoot)

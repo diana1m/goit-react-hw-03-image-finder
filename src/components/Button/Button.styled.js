@@ -6,6 +6,8 @@ import styled from "styled-components";
 export const Button = styled.button`
 padding: 8px 16px;
 border-radius: 2px;
+width: 340px;
+margin: 0 auto;
 background-color: #3f51b5;
 transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 text-align: center;
