@@ -3,12 +3,13 @@ import { getImages } from "components/services/getImages";
 
 import { Hearts } from  'react-loader-spinner'
 
-
 import { Container } from "./Styles/Styles";
 import { Searchbar } from "./Searchbar/Searchbar";
+import { Loader } from './Loader/Loader';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ButtonLoadMore } from './Button/Button';
 import { ImageModal } from './Modal/Modal';
+import { ErrorMessage } from './ErrorMessage/ErrorMessage';
 
 // import Notiflix from 'notiflix';
 
@@ -45,9 +46,8 @@ export class App  extends Component{
       } catch(error) {
         this.setState({ error: error.message });
       } finally {
-
-        setTimeout(()=>this.setState({ isLoading: false}), 300);
-        
+        this.setState({ isLoading: false})
+        // setTimeout(()=>this.setState({ isLoading: false}), 300);
       }
     }
   
@@ -62,11 +62,11 @@ export class App  extends Component{
   }
 
   onCloseModal = () => {
-    this.setState({showModal: false});
+    this.setState({showModal: false, urlLarge: ""});
   }
 
-  onOpenModal = () => {
-    this.setState({showModal: true})
+  onOpenModal = (url) => {
+    this.setState({showModal: true, urlLarge: url})
   }
 
   render(){
@@ -74,24 +74,16 @@ export class App  extends Component{
       <Container>
         <Searchbar onSearch={this.handleSubmit}/>
         
-        {this.state.isLoading && 
-        <Hearts 
-              height="80"
-              width="80"
-              color="#a94d69"
-              ariaLabel="hearts-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-      />}
-        <ImageGallery data={this.state.images}/>
+        {this.state.isLoading && <Loader/>}
+
+        <ImageGallery data={this.state.images} onOpenModal={this.onOpenModal}/>
 
         {(this.state.page * 12 <= this.state.totalHits) &&
             <ButtonLoadMore  onClick={this.loadMore}/>}
 
-        {Boolean(this.state.error.length) && <p>{this.state.error}</p>}
-        <button type="button" onClick={this.onOpenModal}>open modal</button>
-        {this.state.showModal && <ImageModal onCloseModal={this.onCloseModal} url={this.state.url}/>}
+        {Boolean(this.state.error.length) && <ErrorMessage message={this.state.error}/>}
+
+        {this.state.showModal && <ImageModal onCloseModal={this.onCloseModal} url={this.state.urlLarge}/>}
       </Container>
     );
   }
