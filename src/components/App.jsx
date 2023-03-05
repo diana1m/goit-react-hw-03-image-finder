@@ -8,13 +8,15 @@ import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ButtonLoadMore } from './Button/Button';
 
+// import Notiflix from 'notiflix';
+
 export class App  extends Component{ 
   state = {
 		textSearch: '',
     images: [],
 		error: '',
 		page: 1,
-    isLoading: false,
+    isLoading: true,
 	}
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,8 +32,11 @@ export class App  extends Component{
           this.setState({
 						images: [...this.state.images, ...data.hits],
 					})
+          if(data.total === 0){
+            this.setState({ error:  "Sorry, there are no images matching your search query. Please try again."});
+            throw new Error("Sorry, there are no images matching your search query. Please try again.");
+          }
         });
-
       } catch(error) {
         this.setState({ error: error.message });
       } finally {
@@ -69,6 +74,8 @@ export class App  extends Component{
         {Boolean(this.state.images.length) &&
           <ButtonLoadMore  onClick={this.loadMore}/>
         }
+
+        {Boolean(this.state.error.length) && <p>{this.state.error}</p>}
         
       </Container>
     );
