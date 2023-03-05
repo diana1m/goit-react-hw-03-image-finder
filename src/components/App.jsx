@@ -6,6 +6,7 @@ import { Hearts } from  'react-loader-spinner'
 import { Container } from "./Styles/Styles";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { ButtonLoadMore } from './Button/Button';
 
 export class App  extends Component{ 
   state = {
@@ -18,7 +19,10 @@ export class App  extends Component{
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.textSearch !== this.state.textSearch || prevState.page !== this.state.page) {
-      this.setState({ isLoading: true, images: [] });
+      if (prevState.textSearch !== this.state.textSearch){
+        this.setState({images: []});
+      }
+      this.setState({ isLoading: true });
 
       try{
         getImages(this.state.textSearch, this.state.page)
@@ -38,11 +42,12 @@ export class App  extends Component{
 }
 
 	handleSubmit = (textSearch) => {
-
-
 		this.setState({ textSearch})
-    
 	}
+
+  loadMore = ()=>{
+    this.setState({ page: this.state.page+1})
+  }
 
   render(){
     return (
@@ -60,6 +65,10 @@ export class App  extends Component{
         visible={true}
       />}
         <ImageGallery data={this.state.images}/>
+
+        {Boolean(this.state.images.length) &&
+          <ButtonLoadMore  onClick={this.loadMore}/>
+        }
         
       </Container>
     );
