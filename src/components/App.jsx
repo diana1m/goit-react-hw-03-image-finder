@@ -8,6 +8,7 @@ import { Container } from "./Styles/Styles";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { ButtonLoadMore } from './Button/Button';
+import { ImageModal } from './Modal/Modal';
 
 // import Notiflix from 'notiflix';
 
@@ -19,6 +20,8 @@ export class App  extends Component{
 		error: '',
 		page: 1,
     isLoading: false,
+    showModal: false,
+    urlLarge: '',
 	}
 
   componentDidUpdate(prevProps, prevState) {
@@ -58,6 +61,14 @@ export class App  extends Component{
     this.setState({ page: this.state.page+1})
   }
 
+  onCloseModal = () => {
+    this.setState({showModal: false});
+  }
+
+  onOpenModal = () => {
+    this.setState({showModal: true})
+  }
+
   render(){
     return (
       <Container>
@@ -79,7 +90,8 @@ export class App  extends Component{
             <ButtonLoadMore  onClick={this.loadMore}/>}
 
         {Boolean(this.state.error.length) && <p>{this.state.error}</p>}
-        
+        <button type="button" onClick={this.onOpenModal}>open modal</button>
+        {this.state.showModal && <ImageModal onCloseModal={this.onCloseModal} url={this.state.url}/>}
       </Container>
     );
   }
