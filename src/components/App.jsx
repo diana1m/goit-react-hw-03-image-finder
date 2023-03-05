@@ -16,7 +16,7 @@ export class App  extends Component{
     images: [],
 		error: '',
 		page: 1,
-    isLoading: true,
+    isLoading: false,
 	}
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,7 +40,9 @@ export class App  extends Component{
       } catch(error) {
         this.setState({ error: error.message });
       } finally {
-        this.setState({ isLoading: false});
+
+        setTimeout(()=>this.setState({ isLoading: false}), 1000);
+        
       }
     }
   
