@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { getImages } from "components/services/getImages";
 
-// import { Audio } from  'react-loader-spinner'
+import { Hearts } from  'react-loader-spinner'
 
 import { Container } from "./Styles/Styles";
 import { Searchbar } from "./Searchbar/Searchbar";
@@ -38,7 +38,9 @@ export class App  extends Component{
 }
 
 	handleSubmit = (textSearch) => {
-		this.setState({ textSearch, isLoading: true })
+
+
+		this.setState({ textSearch})
     
 	}
 
@@ -47,7 +49,16 @@ export class App  extends Component{
       <Container>
         <Searchbar onSearch={this.handleSubmit}/>
         
-        {this.state.isLoading && <p>Loading...</p>}
+        {this.state.isLoading && 
+        <Hearts 
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="hearts-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+      />}
         <ImageGallery data={this.state.images}/>
         
       </Container>
