@@ -25,9 +25,6 @@ export class App  extends Component{
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.textSearch !== this.state.textSearch || prevState.page !== this.state.page) {
-      if (prevState.textSearch !== this.state.textSearch){
-        this.setState({images: []});
-      }
       this.setState({ isLoading: true});
 
       try{
@@ -52,7 +49,7 @@ export class App  extends Component{
 }
 
 	handleSubmit = (textSearch) => {
-		this.setState({ textSearch, error: ""})
+		this.setState({ textSearch, error: "", page: 1, totalHits: 0, images: []})
 	}
 
   loadMore = ()=>{
